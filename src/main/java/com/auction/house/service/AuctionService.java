@@ -1,6 +1,8 @@
 package com.auction.house.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.auction.house.entity.AuctionEntity;
@@ -32,6 +34,10 @@ public class AuctionService {
 	
 	public List<AuctionEntity> getAllByStatus(AuctionStatus auctionStatus) {
 		return repository.findByAuctionStatus(auctionStatus);
+	}
+	
+	public Optional<AuctionEntity> getById(Long id) {
+		return repository.findById(id);
 	}
 	
 }
