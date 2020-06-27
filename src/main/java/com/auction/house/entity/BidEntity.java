@@ -20,6 +20,8 @@ public class BidEntity {
 	@JoinColumn(name = "auction_id", nullable = false)
 	private AuctionEntity auctionEntity;
 	
+	public BidEntity() {}
+	
 	public BidEntity(Long id, String userName, float bid, AuctionEntity auctionEntity) {
 		this.id = id;
 		this.userName = userName;

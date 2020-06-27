@@ -1,7 +1,5 @@
 package com.auction.house.utils;
 
-import com.auction.house.entity.AuctionStatus;
-
 public class BidUtils {
 
 	public static boolean isBidHigherThanCurrentPrice(float bid, float currentPrice) {
@@ -12,7 +10,4 @@ public class BidUtils {
 		return bid > startPrice;
 	}
 	
-	public static boolean isAuctionRunning(AuctionStatus auctionStatus) {
-		return AuctionStatus.RUNNING == auctionStatus;
-	}
 }

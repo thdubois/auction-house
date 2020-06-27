@@ -1,9 +1,11 @@
 package com.auction.house.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,12 @@ public class BidController {
 	@Autowired
 	AuctionService auctiondService;
 	
+	/**
+	 * Let a specific user bid
+	 * @param auctionId
+	 * @param bid
+	 * @return
+	 */
 	@PostMapping("/auction/{auctionId}/bid")
 	BidEntity createBid(@PathVariable Long auctionId, @RequestBody BidEntity bid) {
 		Optional<AuctionEntity> auctionEntity = auctiondService.getById(auctionId);
@@ -40,5 +48,15 @@ public class BidController {
 		} catch (NotFoundException | ClientRequestException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}			
+	}
+	
+	/**
+	 * List all bidding (with the user name) that has happen until now
+	 * @param userName
+	 * @return all bidding. Empty if no result or userName doesn't exist
+	 */
+	@GetMapping("/bid/{userName}")
+	List<BidEntity> getAllBidByUserName(@PathVariable String userName) {
+		return bidService.getAllBidByUserName(userName);
 	}
 }
