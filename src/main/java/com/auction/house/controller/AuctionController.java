@@ -26,13 +26,13 @@ import com.auction.house.utils.AuctionUtils;
 public class AuctionController {
 		
 	@Autowired
-	AuctionHouseService auctionHouseService;
+	private AuctionHouseService auctionHouseService;
 	
 	@Autowired
-	AuctionService auctionService;
+	private AuctionService auctionService;
 	
 	@Autowired
-	BidService bidService;
+	private BidService bidService;
 	
 	/**
 	 * List all auctions for a given auction house
@@ -58,7 +58,7 @@ public class AuctionController {
 	 * @throws ResponseStatusException 404 if auction house doesn't exist
 	 */
 	@PostMapping("auction_house/{auctionHouseId}/auction")
-	AuctionEntity createAuction(@PathVariable Long auctionHouseId, @RequestBody AuctionEntity auction) {
+	public AuctionEntity createAuction(@PathVariable Long auctionHouseId, @RequestBody AuctionEntity auction) {
 		Optional<AuctionHouseEntity> auctionHouse = auctionHouseService.getAuctionHouse(auctionHouseId);
 		if (auctionHouse.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The auction house " + auctionHouseId + " doesn\'t exist");
@@ -77,7 +77,7 @@ public class AuctionController {
 	 * @throws ResponseStatusException 404 if auctionHouseId or auctionId don't exist else 400 if the status doesn't exist
 	 */
 	@PutMapping("auction_house/{auctionHouseId}/auction/{auctionId}/{status}")
-	AuctionEntity UpdateAuctionStatus(@PathVariable Long auctionHouseId, @PathVariable Long auctionId, @PathVariable AuctionStatus status) {
+	public AuctionEntity UpdateAuctionStatus(@PathVariable Long auctionHouseId, @PathVariable Long auctionId, @PathVariable AuctionStatus status) {
 		Optional<AuctionHouseEntity> auctionHouse = auctionHouseService.getAuctionHouse(auctionHouseId);
 		if (auctionHouse.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The auction house " + auctionHouseId + " doesn\'t exist");
@@ -102,7 +102,7 @@ public class AuctionController {
 	 * @throws ResponseStatusException 400 if auction house doesn't exist
 	 */
 	@DeleteMapping("/auction/{auctionId}")
-	void deleteAuctionHouse(@PathVariable Long auctionId) {
+	public void deleteAuctionHouse(@PathVariable Long auctionId) {
 		Optional<AuctionEntity> auction = auctionService.getById(auctionId);
 		if (auction.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The auction " + auctionId + " doesn\'t exist");

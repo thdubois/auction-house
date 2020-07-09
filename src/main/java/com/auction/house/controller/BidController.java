@@ -24,10 +24,10 @@ import javassist.NotFoundException;
 public class BidController {
 	
 	@Autowired
-	BidService bidService;
+	private BidService bidService;
 	
 	@Autowired
-	AuctionService auctiondService;
+	private AuctionService auctiondService;
 	
 	/**
 	 * Let a specific user bid
@@ -36,7 +36,7 @@ public class BidController {
 	 * @return
 	 */
 	@PostMapping("/auction/{auctionId}/bid")
-	BidEntity createBid(@PathVariable Long auctionId, @RequestBody BidEntity bid) {
+	public BidEntity createBid(@PathVariable Long auctionId, @RequestBody BidEntity bid) {
 		Optional<AuctionEntity> auctionEntity = auctiondService.getById(auctionId);
 		if (auctionEntity.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The auction " + auctionId + " doesn\'t exist");
@@ -56,7 +56,7 @@ public class BidController {
 	 * @return all bidding. Empty if no result or userName doesn't exist
 	 */
 	@GetMapping("/bid/{userName}")
-	List<BidEntity> getAllBidByUserName(@PathVariable String userName) {
+	public List<BidEntity> getAllBidByUserName(@PathVariable String userName) {
 		return bidService.getAllBidByUserName(userName);
 	}
 }

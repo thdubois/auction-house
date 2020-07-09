@@ -21,7 +21,7 @@ public class BidService {
 	@Autowired
 	private AuctionService auctionService;
 	
-	private final BidRepository repository;
+	private BidRepository repository;
 	
 	
 	public BidService(BidRepository repository) {

@@ -21,7 +21,7 @@ import com.auction.house.service.AuctionHouseService;
 public class AuctionHouseController {
 	
 	@Autowired
-	AuctionHouseService auctionHouseService;
+	private AuctionHouseService auctionHouseService;
 	
 	/**
 	 * List all auction houses created
@@ -39,7 +39,7 @@ public class AuctionHouseController {
 	 * @throws ResponseStatusException 400 if name is missing
 	 */
 	@PostMapping("/auction_house")
-	AuctionHouseEntity createAuctionHouse(@RequestBody AuctionHouseEntity auctionHouse) {
+	public AuctionHouseEntity createAuctionHouse(@RequestBody AuctionHouseEntity auctionHouse) {
 		if (auctionHouse == null || StringUtils.isEmpty(auctionHouse.getName())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name is missing");
 		}
@@ -53,7 +53,7 @@ public class AuctionHouseController {
 	 * @throws ResponseStatusException 404 if auction house id doesn't exist
 	 */
 	@DeleteMapping("/auction_house/{auctionHouseId}")
-	void deleteAuctionHouse(@PathVariable Long auctionHouseId) {
+	public void deleteAuctionHouse(@PathVariable Long auctionHouseId) {
 		Optional<AuctionHouseEntity> auctionHouse = auctionHouseService.getAuctionHouse(auctionHouseId);
 		if (auctionHouse.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The auction house " + auctionHouseId + " doesn\'t exist");
